@@ -6,6 +6,7 @@ import cors from "cors";
 
 //IMPORTAMOS RUTAS
 import indexRoute from './routes/index.route.js'
+import usuarios from './routes/usuario.route.js'
 
 //MIDDLEWARES
 const app = express()
@@ -16,5 +17,6 @@ app.use(cors());
 
 //USAMOS LAS RUTAS
 app.use('/', indexRoute)
+app.use('/', usuarios)
 
 export default app
