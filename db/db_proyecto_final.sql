@@ -81,11 +81,20 @@ CREATE TABLE categoria_gasto(
     estado_registro TINYINT DEFAULT 1
 );
 
+CREATE TABLE persona(
+	id_persona INT PRIMARY KEY AUTO_INCREMENT,
+	nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    correo VARCHAR(200) NOT NULL,
+    telefono VARCHAR(100) NOT NULL
+);
+
 CREATE TABLE usuario(
 	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     usuario VARCHAR(100) NOT NULL,
     contraseña VARCHAR(200) NOT NULL,
 	id_rol_usuario INT NOT NULL,
+    id_persona INT NOT NULL,
     activo TINYINT DEFAULT 1
 );
 
@@ -122,6 +131,10 @@ FOREIGN KEY (id_producto) REFERENCES producto(id_producto);
 ALTER TABLE usuario 
 ADD CONSTRAINT fk_usuario_rol
 FOREIGN KEY (id_rol_usuario) REFERENCES rol_usuario(id_rol_usuario);
+
+ALTER TABLE usuario
+ADD CONSTRAINT fk_usuario_persona
+FOREIGN KEY (id_persona) REFERENCES persona(id_persona);
 
 /* GASTOS */
 ALTER TABLE gasto

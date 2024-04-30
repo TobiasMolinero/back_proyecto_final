@@ -14,24 +14,23 @@ export const login = (req, res) => {
         } else if(results.length > 0){
             const user = results
             const match = await verified(contraseña, user[0].contraseña)
+            const token = generateToken(user[0].usuario);
 
             if(match){
                 var userData = results[0];
                 delete userData.contraseña;
                 res.status(200).json({
-                    auth: true,
                     message: 'Iniciaste sesión con exito.',
-                    userData
+                    data: userData,
+                    token: token
                 });
             } else {
                 res.status(401).json({
-                    auth: false,
                     message: 'Contraseña incorrecta.'
                 });
             }
         } else {
             res.status(404).json({
-                auth: false,
                 message: 'El usuario ingresado no existe.'
             });
         }
@@ -65,7 +64,10 @@ export const listadoUsuarios = (req, res) => {
                 message: 'Ocurrio un error en el servidor.'
             })
         } else {
-            res.status(200).json(results)
+            console.log(results)
+            res.status(200).json({
+                data: results
+            })
         }
     })
 } 
@@ -130,7 +132,7 @@ export const bajaUsuario = (req, res) => {
 
     pool.query(`UPDATE usuario SET activo = 0
                 WHERE id_usuario = ${id}
-    `, (error, results) => {
+    `, (error) => {
         if(error){
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
