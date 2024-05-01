@@ -7,7 +7,7 @@ import {
     modificarUsuario, 
     bajaUsuario,
     modificarContraseña
-} from '../controllers/usuario.controller.js'
+} from '../controllers/usuario.controller.js';
 
 const router = Router()
 

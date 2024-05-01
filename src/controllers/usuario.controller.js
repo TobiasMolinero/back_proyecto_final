@@ -38,14 +38,28 @@ export const login = (req, res) => {
 }
 
 export const altaUsuario = async(req, res) => {
-    const {usuario, contraseña, id_rol_usuario} = req.body
+    const {nombre, apellido, correo, telefono, usuario, contraseña, id_rol_usuario} = req.body
+
+    pool.query(`INSERT INTO persona(nombre, apellido, correo, telefono)
+                VALUES('${nombre}', '${apellido}', '${correo}', '${telefono}')
+    `, (error, results) => {
+        if(error){
+            res.json(500).json({
+                message: 'Ocurrio un error en el servidor.'
+            })
+        }
+    })
 
     const passHash = await encrypt(contraseña)
 
-    pool.query(`INSERT INTO usuario(usuario, contraseña, id_rol_usuario)
-                VALUES('${usuario}', '${passHash}', ${id_rol_usuario})
+    pool.query(`INSERT INTO usuario(usuario, contraseña, id_rol_usuario, id_persona)
+                VALUES('${usuario}', '${passHash}', ${id_rol_usuario}, 
+                (SELECT id_persona FROM persona ORDER BY id_persona DESC
+                 LIMIT 1)
+            )
     `, (error) => {
         if(error){
+            console.log(error)
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor al crear el usuario.'
             })
@@ -58,13 +72,12 @@ export const altaUsuario = async(req, res) => {
 }
 
 export const listadoUsuarios = (req, res) => {
-    pool.query('SELECT * FROM usuarios' , (error, results) => {
+    pool.query('SELECT id_usuario, id_persona, nombre, apellido, correo, telefono, usuario, rol FROM usuarios_persona' , (error, results) => {
         if(error){
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
             })
         } else {
-            console.log(results)
             res.status(200).json({
                 data: results
             })
@@ -75,7 +88,7 @@ export const listadoUsuarios = (req, res) => {
 export const listarUsuario = (req, res) => {
     const id = req.params.id
 
-    pool.query(`SELECT * FROM usuarios WHERE id_usuario = ${id}
+    pool.query(`SELECT * FROM usuarios_persona WHERE id_usuario = ${id}
     `, (error, results) => {
         if(error){
             res.status(500).json({
