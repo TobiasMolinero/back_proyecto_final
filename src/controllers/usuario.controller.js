@@ -38,25 +38,12 @@ export const login = (req, res) => {
 }
 
 export const altaUsuario = async(req, res) => {
-    const {nombre, apellido, correo, telefono, usuario, contraseña, id_rol_usuario} = req.body
-
-    pool.query(`INSERT INTO persona(nombre, apellido, correo, telefono)
-                VALUES('${nombre}', '${apellido}', '${correo}', '${telefono}')
-    `, (error, results) => {
-        if(error){
-            res.json(500).json({
-                message: 'Ocurrio un error en el servidor.'
-            })
-        }
-    })
+    const {usuario, contraseña, id_rol} = req.body
 
     const passHash = await encrypt(contraseña)
 
     pool.query(`INSERT INTO usuario(usuario, contraseña, id_rol_usuario, id_persona)
-                VALUES('${usuario}', '${passHash}', ${id_rol_usuario}, 
-                (SELECT id_persona FROM persona ORDER BY id_persona DESC
-                 LIMIT 1)
-            )
+                VALUES('${usuario}', '${passHash}', ${id_rol}, (SELECT id_persona FROM persona ORDER BY id_persona DESC LIMIT 1))
     `, (error) => {
         if(error){
             console.log(error)
