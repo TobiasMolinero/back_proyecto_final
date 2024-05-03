@@ -18,6 +18,6 @@ router.post('/usuarios/login', login)
 router.post('/usuarios/altausuario', validarUsuarioExistente, validarContraseña, altaPersona, altaUsuario)
 router.put('/usuarios/edit/:id', modificarUsuario)
 router.put('/usuarios/editpassword/:id', modificarContraseña)
-router.put('/usuarios/bajausuario/:id', bajaUsuario)
+router.delete('/usuarios/bajausuario/:id', bajaUsuario)
 
 export default router

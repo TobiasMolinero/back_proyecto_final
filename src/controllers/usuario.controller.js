@@ -6,7 +6,7 @@ export const login = (req, res) => {
     const {usuario, contraseña} = req.body
 
     pool.query(`SELECT * FROM usuarios WHERE usuario = '${usuario}'
-    `, async (error, results) => {
+    `, async(error, results) => {
         if(error){
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor. Vuelva a intentarlo mas tarde.'
@@ -108,10 +108,10 @@ export const modificarUsuario = (req, res) => {
     })
 } 
 
-export const modificarContraseña = async(req, res) => {
+export const modificarContraseña = (req, res) => {
     const id = req.params.id;
     const {nueva_contraseña} = req.body;
-    const passHash = await encrypt(nueva_contraseña);
+    const passHash = encrypt(nueva_contraseña);
     pool.query(`UPDATE usuario SET contraseña = '${passHash}'
                 WHERE id_usuario = ${id}
     ` , (error) => {
@@ -130,7 +130,7 @@ export const modificarContraseña = async(req, res) => {
 export const bajaUsuario = (req, res) => {
     const id = req.params.id
 
-    pool.query(`UPDATE usuario SET activo = 0
+    pool.query(`DELETE FROM usuario
                 WHERE id_usuario = ${id}
     `, (error) => {
         if(error){
@@ -143,4 +143,18 @@ export const bajaUsuario = (req, res) => {
             })
         }
     })
+
+    // pool.query(`DELETE FROM persona
+    //             WHERE id_persona = ${id}
+    // `, (error, results) => {
+    //     if(error){
+    //         res.status(500).json({
+    //             message: 'Ocurrio un error en el servidor.'
+    //         })
+    //     } else {
+    //         res.status(200).json({
+    //             message: 'El usuario se dio de baja con exito.'
+    //         })
+    //     }
+    // })
 }
