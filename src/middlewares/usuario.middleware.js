@@ -57,3 +57,35 @@ export const altaPersona = (req, res, next) => {
         }
     })
 }
+
+export const editarPersona = (req, res, next) => {
+    const id_usuario = req.params.id;
+    const {nombre, apellido, correo, telefono} = req.body;
+
+    pool.query(`SELECT id_persona FROM usuario WHERE id_usuario = ${id_usuario}
+    `, (error, results) => {
+        if(error){
+            res.status(500).json({
+                message: 'Ocurrio un error en el servidor.'
+            })
+        } else {
+            const id_persona = results[0].id_persona;
+            pool.query(`UPDATE persona SET
+                        nombre = '${nombre}',
+                        apellido = '${apellido}',
+                        correo = '${correo}',
+                        telefono = '${telefono}'
+                        WHERE id_persona = ${id_persona}
+            `, (error) => {
+                if(error){
+                    console.log('hola')
+                    res.status(500).json({
+                        message: 'Ocurrio un error en el servidor.'
+                    })
+                } else {
+                    next();
+                }
+            })
+        }
+    })
+}

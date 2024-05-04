@@ -12,3 +12,5 @@ SELECT * FROM persona;
 INSERT INTO usuario(usuario, contraseña, id_rol_usuario, id_persona)
 VALUES('TobiasM', '12345', 1, 1);
 SELECT * FROM usuario;
+
+DELETE FROM persona WHERE id_persona = 1;

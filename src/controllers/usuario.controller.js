@@ -82,21 +82,24 @@ export const listarUsuario = (req, res) => {
                 message: 'Ocurrio un error en el servidor.'
             })
         } else {
-            res.status(200).json(results)
+            res.status(200).json({
+                data: results
+            })
         }
     })
 } 
 
 export const modificarUsuario = (req, res) => {
     const id = req.params.id
-    const { usuario, id_rol_usuario } = req.body
+    const { usuario, id_rol } = req.body
 
     pool.query(`UPDATE usuario SET 
                 usuario = '${usuario}',
-                id_rol_usuario = ${id_rol_usuario}
+                id_rol_usuario = ${id_rol}
                 WHERE id_usuario = ${id}
     `, (error) => {
         if(error){
+            console.log(error)
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
             })
@@ -108,10 +111,12 @@ export const modificarUsuario = (req, res) => {
     })
 } 
 
-export const modificarContraseña = (req, res) => {
+export const modificarContraseña = async(req, res) => {
     const id = req.params.id;
     const {nueva_contraseña} = req.body;
-    const passHash = encrypt(nueva_contraseña);
+
+    console.log(nueva_contraseña)
+    const passHash = await encrypt(nueva_contraseña);
     pool.query(`UPDATE usuario SET contraseña = '${passHash}'
                 WHERE id_usuario = ${id}
     ` , (error) => {
@@ -128,12 +133,25 @@ export const modificarContraseña = (req, res) => {
 }
 
 export const bajaUsuario = (req, res) => {
-    const id = req.params.id
+    const id = req.params.id;
+    const {id_persona} = req.body;
+
+    console.log(id_persona)
 
     pool.query(`DELETE FROM usuario
                 WHERE id_usuario = ${id}
     `, (error) => {
         if(error){
+            res.status(500).json({
+                message: 'Ocurrio un error en el servidor.'
+            })
+        }
+    })
+
+    pool.query(`DELETE FROM persona WHERE id_persona = ${id_persona}
+    `, (error) => {
+        if(error){
+        console.log(error)
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
             })
@@ -143,18 +161,4 @@ export const bajaUsuario = (req, res) => {
             })
         }
     })
-
-    // pool.query(`DELETE FROM persona
-    //             WHERE id_persona = ${id}
-    // `, (error, results) => {
-    //     if(error){
-    //         res.status(500).json({
-    //             message: 'Ocurrio un error en el servidor.'
-    //         })
-    //     } else {
-    //         res.status(200).json({
-    //             message: 'El usuario se dio de baja con exito.'
-    //         })
-    //     }
-    // })
 }
