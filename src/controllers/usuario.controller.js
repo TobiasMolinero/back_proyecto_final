@@ -136,8 +136,6 @@ export const bajaUsuario = (req, res) => {
     const id = req.params.id;
     const {id_persona} = req.body;
 
-    console.log(id_persona)
-
     pool.query(`DELETE FROM usuario
                 WHERE id_usuario = ${id}
     `, (error) => {
@@ -159,6 +157,7 @@ export const bajaUsuario = (req, res) => {
             res.status(200).json({
                 message: 'El usuario se dio de baja con exito.'
             })
+            return
         }
     })
 }

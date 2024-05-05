@@ -134,7 +134,8 @@ FOREIGN KEY (id_rol_usuario) REFERENCES rol_usuario(id_rol_usuario);
 
 ALTER TABLE usuario
 ADD CONSTRAINT fk_usuario_persona
-FOREIGN KEY (id_persona) REFERENCES persona(id_persona);
+FOREIGN KEY (id_persona) REFERENCES persona(id_persona)
+ON DELETE CASCADE;
 
 /* GASTOS */
 ALTER TABLE gasto
