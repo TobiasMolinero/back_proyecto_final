@@ -115,7 +115,6 @@ export const modificarContraseña = async(req, res) => {
     const id = req.params.id;
     const {nueva_contraseña} = req.body;
 
-    console.log(nueva_contraseña)
     const passHash = await encrypt(nueva_contraseña);
     pool.query(`UPDATE usuario SET contraseña = '${passHash}'
                 WHERE id_usuario = ${id}

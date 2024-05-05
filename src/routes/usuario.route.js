@@ -8,16 +8,20 @@ import {
     bajaUsuario,
     modificarContraseña
 } from '../controllers/usuario.controller.js';
+import { checkToken } from '../middlewares/checkToken.js';
 import { validarUsuarioExistente, validarContraseña, altaPersona, editarPersona } from '../middlewares/usuario.middleware.js';
 
 const router = Router()
 
-router.get('/usuarios/one/:id', listarUsuario)
-router.get('/usuarios/listarusuarios', listadoUsuarios)
+// RUTAS GENERALES
+router.get('/usuarios/one/:id', checkToken, listarUsuario)
 router.post('/usuarios/login', login)
-router.post('/usuarios/altausuario', validarUsuarioExistente, validarContraseña, altaPersona, altaUsuario)
-router.put('/usuarios/edit/:id', editarPersona, modificarUsuario)
-router.put('/usuarios/editpassword/:id', modificarContraseña)
-router.put('/usuarios/bajausuario/:id', bajaUsuario)
+
+// RUTAS ADMIN
+router.get('/admin/usuarios/listarusuarios', checkToken, listadoUsuarios)
+router.post('/admin/usuarios/altausuario', checkToken, validarUsuarioExistente, validarContraseña, altaPersona, altaUsuario)
+router.put('/admin/usuarios/edit/:id', checkToken, editarPersona, modificarUsuario)
+router.put('/admin/usuarios/editpassword/:id', checkToken, modificarContraseña)
+router.put('/admin/usuarios/bajausuario/:id', checkToken, bajaUsuario)
 
 export default router
