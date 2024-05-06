@@ -8,9 +8,7 @@ CREATE TABLE pedido(
     fecha DATETIME NOT NULL,
     id_cliente INT NOT NULL,
     id_estado_pedido INT NOT NULL,
-    id_metodo_pago INT NOT NULL,
     observaciones VARCHAR(1000),
-    descuento DECIMAL(1, 2),
     importe_total DECIMAL(10, 2) CHECK(importe_total > 0) NOT NULL,
     estado_registro TINYINT DEFAULT 1  
 );
@@ -23,6 +21,29 @@ CREATE TABLE detalle_pedido(
 
 CREATE TABLE estado_pedido(
 	id_estado_pedido INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(30) NOT NULL,
+    estado_registro TINYINT DEFAULT 1
+);
+
+CREATE TABLE venta(
+	id_venta INT PRIMARY KEY AUTO_INCREMENT,
+    nro_pedido INT NOT NULL,
+    id_estado_venta INT NOT NULL,
+	id_metodo_pago INT NOT NULL,
+    descuento DECIMAL(1, 2) CHECK(descuento >= 0) DEFAULT 0 NOT NULL,
+    por_cobrar DECIMAL(10, 2) CHECK(por_cobrar >= 0) NOT NULL,
+    cobrado DECIMAL(10, 2) CHECK(cobrado >= 0) NOT NULL,
+    estado_registro TINYINT DEFAULT 1
+);
+
+CREATE TABLE cobros_venta(
+	id_venta INT NOT NULL,
+    fecha DATETIME NOT NULL,
+    importe_cobro DECIMAL(10, 2) CHECK(importe_cobro > 0) NOT NULL
+);
+
+CREATE TABLE estado_venta(
+	id_estado_venta INT PRIMARY KEY AUTO_INCREMENT,
     descripcion VARCHAR(30) NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );

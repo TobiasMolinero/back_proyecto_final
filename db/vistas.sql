@@ -20,3 +20,7 @@ ON u.id_rol_usuario = ru.id_rol_usuario
 WHERE u.activo = 1;
 
 SELECT * FROM usuarios_persona;
+
+/* Vista para los pedidos con su estado y el cliente que hizo el pedido*/
+
+/* Vista para las ventas con su estado, el metodo de pago y nro de pedido al que corresponde*/
