@@ -1,4 +1,5 @@
 import { createPool } from "mysql2"
+
 import {
     DB_HOST,
     DB_USER,

@@ -4,7 +4,7 @@ CREATE DATABASE proyecto_final;
 USE proyecto_final;
 
 CREATE TABLE pedido(
-	nro_pedido INT PRIMARY KEY AUTO_INCREMENT,
+	nro_pedido INT PRIMARY KEY CHECK(nro_pedido > 0) NOT NULL,
     fecha DATETIME NOT NULL,
     id_cliente INT NOT NULL,
     id_estado_pedido INT NOT NULL,
@@ -58,8 +58,15 @@ CREATE TABLE producto(
 	id_producto INT PRIMARY KEY AUTO_INCREMENT,
     cod_producto VARCHAR(50) NOT NULL,
     nombre_producto VARCHAR(50) NOT NULL,
+    id_categoria_producto INT NOT NULL,
     descripcion VARCHAR(100),
     precio DECIMAL(10, 2) CHECK(precio >= 0) NOT NULL,
+    estado_registro TINYINT DEFAULT 1
+);
+
+CREATE TABLE categoria_producto(
+	id_categoria_producto INT PRIMARY KEY AUTO_INCREMENT,
+    descripcion VARCHAR(30) NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
 
@@ -139,6 +146,11 @@ ALTER TABLE pedido
 ADD CONSTRAINT fk_pedido_metodo
 FOREIGN KEY (id_metodo_pago) REFERENCES metodo_pago(id_metodo_pago);
 
+/* PRODUCTO */
+ALTER TABLE producto
+ADD CONSTRAINT fk_producto_categoria
+FOREIGN KEY (id_categoria_producto) REFERENCES categoria_producto(id_categoria_producto);
+
 /* DETALLE PEDIDO */
 ALTER TABLE detalle_pedido
 ADD CONSTRAINT fk_detalle_nro_pedido
@@ -168,6 +180,6 @@ ALTER TABLE ingreso_mercaderia
 ADD CONSTRAINT fk_ingreso_inventario
 FOREIGN KEY (id_mercaderia) REFERENCES inventario(id_mercaderia);
 
-
+SET SQL_SAFE_UPDATES = 0;
 
 
