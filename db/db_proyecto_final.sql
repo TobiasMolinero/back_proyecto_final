@@ -75,9 +75,9 @@ CREATE TABLE cliente(
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50) NOT NULL,
     razon_social VARCHAR(50),
-    domicilio VARCHAR(100),
-    telefono VARCHAR(100),
-    correo VARCHAR(100),
+    domicilio VARCHAR(100) NOT NULL,
+    telefono VARCHAR(100) NOT NULL,
+    correo VARCHAR(100) NOT NULL,
     activo TINYINT DEFAULT 1
 );
 

@@ -20,6 +20,7 @@ SELECT * FROM estado_pedido;
 
 /* Cliente */
 SELECT * FROM cliente;
+UPDATE cliente SET activo = 1;
 
 
 /* Categoria producto */
@@ -36,4 +37,4 @@ SELECT * FROM pedido;
 
 /* detalle pedido*/
 SELECT * FROM detalle_pedido;
-DELETE FROM detalle_pedido
+DELETE FROM detalle_pedidos

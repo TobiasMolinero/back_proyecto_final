@@ -9,9 +9,9 @@ const router = Router()
 router.get('/clientes/one/:id', one)
 router.get('/clientes/all', all)
 router.post('/clientes/create', crear)
+router.put('/clientes/edit/:id', editar)
 
 //RUTAS ADMIN
-router.put('/admin/clientes/edit/:id', editar)
 router.put('/admin/clientes/delete/:id', borrar)
 
 export default router

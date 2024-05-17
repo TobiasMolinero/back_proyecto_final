@@ -1,4 +1,4 @@
-import { pool } from '../db.js'
+import { pool, pool2 } from '../db.js'
 
 export const crearPedido = (req, res, next) => {
     const {nro_pedido, fecha, id_cliente, id_estado_pedido, observaciones, importe_total} = req.body
@@ -20,10 +20,9 @@ export const crearDetalle = async(req, res) => {
     const {detalles} = req.body
     try {
         const results = []
-        console.log(detalles)
         detalles.forEach(async detalle => {
             const query = 'INSERT INTO detalle_pedido(nro_pedido, id_producto, cantidad) VALUES(?, ?, ?)'
-            const [result] = await pool.query(query, [detalle.nro_pedido, detalle.id_producto, detalle.cantidad]) 
+            const [result] = await pool2.query(query, [detalle.nro_pedido, detalle.id_producto, detalle.cantidad]) 
             results.push(result)
             
         });
@@ -31,25 +30,10 @@ export const crearDetalle = async(req, res) => {
             message: 'El pedido fue creado con exito.'
         })
     } catch (error) {
-        console.log(error)
         res.status(500).json({
             message: 'Ocurrio un error en el servidor.'
         })
     }
-
-    // pool.query(`INSERT INTO detalle_pedido(nro_pedido, id_producto, cantidad)
-    //             VALUES(${nro_pedido}, ${id_producto}, ${cantidad}) 
-    // `, (error) => {
-    //     if(error){
-    //         res.status(500).json({
-    //             message: 'Ocurrio un error en el servidor.'
-    //         })
-    //     } else {
-    //         res.status(200).json({
-    //             message: 'El pedido se registró con exito.'
-    //         })
-    //     }
-    // })
 }
 
 export const editarPedido = (req, res) => {
