@@ -148,7 +148,6 @@ export const bajaUsuario = (req, res) => {
     pool.query(`DELETE FROM persona WHERE id_persona = ${id_persona}
     `, (error) => {
         if(error){
-        console.log(error)
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
             })
@@ -157,6 +156,21 @@ export const bajaUsuario = (req, res) => {
                 message: 'El usuario se dio de baja con exito.'
             })
             return
+        }
+    })
+}
+
+export const getRoles = (req, res) => {
+    pool.query('SELECT id_rol_usuario, descripcion FROM rol_usuario WHERE estado_registro = 1'
+    , (error, results) => {
+        if(error){
+            res.status(500).json({
+                message: 'Ocurrio un error en el servidor'
+            })
+        } else {
+            res.status(200).json({
+                data: results
+            })
         }
     })
 }

@@ -3,7 +3,6 @@
 /* Roles de usuario */
 INSERT INTO rol_usuario(descripcion)
 VALUES('admin'),('empleado');
-SELECT * FROM rol_usuario;
 
 /* INSERT INTO persona(nombre, apellido, correo, telefono)
 VALUES('Tobias', 'Molinero', 'tobiasmolinero98@gmail.com', '3815673581');
@@ -16,6 +15,13 @@ SELECT * FROM usuario;
 DELETE FROM persona WHERE id_persona = 1; */
 
 /* Estado pedido */
+INSERT INTO estado_pedido(nombre, descripcion)
+VALUES('Confirmado', 'El pedido ha sido confirmado por el vendedor y esta listo para ser procesado.'),
+('Preparación', 'El pedido esta siendo preparado.'),
+('En transito', 'El pedido fue enviado y esta en camino hacia el cliente.'),
+('Retira el cliente', 'El cliente retira su pedido.'),
+('Entregado', 'El pedido fue entregado al cliente.'),
+('Cancelado', 'El pedido fue cancelado por el vendedor o el cliente.');
 SELECT * FROM estado_pedido;
 
 /* Cliente */
@@ -29,6 +35,9 @@ SELECT * FROM categoria_producto;
 
 /* Producto */
 SELECT * FROM producto;
+
+UPDATE producto SET estado_registro = 1
+WHERE id_producto = 1;
 
 /* Pedido */
 INSERT INTO pedido(nro_pedido, fecha, id_cliente, id_estado_pedido, observaciones, importe_total)

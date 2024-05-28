@@ -1,12 +1,14 @@
 import { pool } from '../db.js'
 
 export const crear = (req, res) => {
+    console.log(req.body)
     const {cod_producto, id_categoria_producto, nombre_producto, descripcion, precio} = req.body
 
     pool.query(`INSERT INTO producto(cod_producto, nombre_producto, id_categoria_producto, descripcion, precio)
                 VALUES('${cod_producto}', '${nombre_producto}', ${id_categoria_producto}, '${descripcion}', ${precio})
     `, (error) => {
         if(error){
+        console.log(error)
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
             })
@@ -86,6 +88,21 @@ export const borrar = (req, res) => {
         } else {
             res.status(200).json({
                 message: 'El producto se dio de baja con exito.'
+            })
+        }
+    })
+}
+
+export const categorias = (req, res) => {
+    pool.query('SELECT id_categoria_producto, descripcion FROM categoria_producto'
+    , (error, results) => {
+        if(error){
+            res.status(500).json({
+                message: 'Ocurrio un error en el servidor.'
+            })
+        } else {
+            res.status(200).json({
+                data: results
             })
         }
     })

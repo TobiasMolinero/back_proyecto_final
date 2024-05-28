@@ -19,9 +19,11 @@ CREATE TABLE detalle_pedido(
     cantidad INT CHECK(cantidad > 0) NOT NULL
 );
 
+DROP TABLE estado_pedido;
 CREATE TABLE estado_pedido(
 	id_estado_pedido INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(30) NOT NULL,
+    nombre VARCHAR(30) NOT NULL,
+    descripcion VARCHAR(150),
     estado_registro TINYINT DEFAULT 1
 );
 

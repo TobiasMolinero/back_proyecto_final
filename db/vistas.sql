@@ -24,7 +24,7 @@ SELECT * FROM usuarios_persona;
 /* Vista de los productos con sus categorias */
 DROP VIEW productos;
 CREATE VIEW productos AS
-SELECT p.id_producto, p.cod_producto, p.nombre_producto, p.descripcion, p.precio, cp.descripcion 'categoria' FROM producto p
+SELECT p.id_producto, p.cod_producto, p.nombre_producto, p.descripcion, p.precio, p.id_categoria_producto, cp.descripcion 'categoria' FROM producto p
 JOIN categoria_producto cp
 ON p.id_categoria_producto = cp.id_categoria_producto
 WHERE p.estado_registro = 1;
