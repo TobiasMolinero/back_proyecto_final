@@ -5,12 +5,12 @@ import { crear, editar, one, all, borrar } from '../controllers/categoria_produc
 const router = Router()
 
 // RUTAS GENERALES
-router.get('/cat-product/all', all)
+router.get('/cat-producto/all', all)
+router.get('/cat-producto/one/:id', one)
+router.post('/cat-producto/create', crear)
+router.put('/cat-producto/edit/:id', editar)
 
 // RUTAS ADMIN
-router.get('/admin/cat-product/one/:id', one)
-router.post('/admin/cat-product/create', crear)
-router.put('/admin/cat-product/edit/:id', editar)
-router.put('/admin/cat-product/delete/:id', borrar)
+router.put('/admin/cat-producto/delete/:id', borrar)
 
 export default router
