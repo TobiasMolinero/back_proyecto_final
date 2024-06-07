@@ -7,14 +7,16 @@ import {
     modificarUsuario, 
     bajaUsuario,
     modificarContraseña,
-    getRoles
+    getRoles,
+    validarSesion
 } from '../controllers/usuario.controller.js';
-// import { checkToken } from '../middlewares/checkToken.js';
 import { validarUsuarioExistente, validarContraseña, altaPersona, editarPersona } from '../middlewares/usuario.middleware.js';
+import { checkToken } from '../middlewares/checkToken.js';
 
 const router = Router()
 
 // RUTAS GENERALES
+router.get('/validar-sesion', checkToken, validarSesion);
 router.get('/usuarios/one/:id', listarUsuario)
 router.get('/usuarios/roles', getRoles)
 router.post('/usuarios/login', login)

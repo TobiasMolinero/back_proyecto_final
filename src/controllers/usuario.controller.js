@@ -5,7 +5,7 @@ import { generateToken } from '../utils/jwt.js'
 export const login = (req, res) => {
     const {usuario, contraseña} = req.body
 
-    pool.query(`SELECT * FROM usuarios WHERE usuario = '${usuario}'
+    pool.query(`SELECT * FROM usuarios WHERE BINARY usuario = '${usuario}'
     `, async(error, results) => {
         if(error){
             res.status(500).json({
@@ -173,4 +173,8 @@ export const getRoles = (req, res) => {
             })
         }
     })
+}
+
+export const validarSesion = (req, res) => {
+    res.status(200)
 }
