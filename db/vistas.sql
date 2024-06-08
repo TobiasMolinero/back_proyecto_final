@@ -38,9 +38,9 @@ SELECT * FROM productos;
 
 
 /* VISTA DE LOS GASTOS CON SUS CATEGORIAS */
-DROP VIEW gastos;
+DROP VIEW gastos_varios;
 CREATE VIEW gastos_varios AS
-SELECT g.id_gasto, cg.id_categoria_gasto, cg.descripcion as 'categoria', g.fecha, g.importe FROM gasto g
+SELECT g.id_gasto, cg.id_categoria_gasto, cg.descripcion as 'categoria', g.fecha, g.importe, g.detalle FROM gasto g
 JOIN categoria_gasto cg
 ON g.id_categoria_gasto = cg.id_categoria_gasto
 WHERE g.estado_registro = 1;

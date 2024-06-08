@@ -12,6 +12,7 @@ import estado_pedido from './routes/estado_pedido.route.js'
 import clientes from './routes/cliente.route.js'
 import productos from './routes/producto.route.js'
 import categoria_producto from './routes/categoria_producto.route.js'
+import gastos from './routes/gasto.route.js'
 
 //MIDDLEWARES
 const app = express()
@@ -28,5 +29,6 @@ app.use('/', pedidos)
 app.use('/', clientes)
 app.use('/', productos)
 app.use('/', categoria_producto)
+app.use('/', gastos)
 
 export default app

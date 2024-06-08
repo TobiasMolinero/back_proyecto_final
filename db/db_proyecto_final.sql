@@ -3,8 +3,6 @@ CREATE DATABASE proyecto_final;
 
 USE proyecto_final;
 
-DROP TABLE pedido;
-
 CREATE TABLE pedido(
 id_pedido INT PRIMARY KEY AUTO_INCREMENT,
 	nro_pedido INT CHECK(nro_pedido > 0) NOT NULL,
@@ -102,8 +100,9 @@ CREATE TABLE ingreso_mercaderia(
 CREATE TABLE gasto(
 	id_gasto INT PRIMARY KEY AUTO_INCREMENT,
     id_categoria_gasto INT NOT NULL,
-    fecha DATETIME,
+    fecha DATETIME NOT NULL,
     importe DECIMAL(10, 2) CHECK(importe > 0) NOT NULL,
+    detalle VARCHAR(150) NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
 
