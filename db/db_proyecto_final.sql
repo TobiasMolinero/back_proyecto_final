@@ -3,8 +3,11 @@ CREATE DATABASE proyecto_final;
 
 USE proyecto_final;
 
+DROP TABLE pedido;
+
 CREATE TABLE pedido(
-	nro_pedido INT PRIMARY KEY CHECK(nro_pedido > 0) NOT NULL,
+id_pedido INT PRIMARY KEY AUTO_INCREMENT,
+	nro_pedido INT CHECK(nro_pedido > 0) NOT NULL,
     fecha DATETIME NOT NULL,
     id_cliente INT NOT NULL,
     id_estado_pedido INT NOT NULL,
@@ -19,7 +22,6 @@ CREATE TABLE detalle_pedido(
     cantidad INT CHECK(cantidad > 0) NOT NULL
 );
 
-DROP TABLE estado_pedido;
 CREATE TABLE estado_pedido(
 	id_estado_pedido INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(30) NOT NULL,

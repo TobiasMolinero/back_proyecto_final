@@ -34,3 +34,15 @@ SELECT * FROM productos;
 /* Vista para los pedidos con su estado y el cliente que hizo el pedido*/
 
 /* Vista para las ventas con su estado, el metodo de pago y nro de pedido al que corresponde*/
+
+
+
+/* VISTA DE LOS GASTOS CON SUS CATEGORIAS */
+DROP VIEW gastos;
+CREATE VIEW gastos_varios AS
+SELECT g.id_gasto, cg.id_categoria_gasto, cg.descripcion as 'categoria', g.fecha, g.importe FROM gasto g
+JOIN categoria_gasto cg
+ON g.id_categoria_gasto = cg.id_categoria_gasto
+WHERE g.estado_registro = 1;
+
+SELECT * FROM gastos_varios;

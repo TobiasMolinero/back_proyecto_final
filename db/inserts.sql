@@ -46,4 +46,16 @@ SELECT * FROM pedido;
 
 /* detalle pedido*/
 SELECT * FROM detalle_pedido;
-DELETE FROM detalle_pedidos
+DELETE FROM detalle_pedidos;
+
+/* GASTOS */
+INSERT INTO gasto(id_categoria_gasto, fecha, importe)
+VALUES(1, '2024-06-07', 10000);
+
+SELECT * FROM gasto;
+
+/* CATEGORIA GASTOS */
+INSERT INTO categoria_gasto(descripcion)
+VALUES('Sueldos'),('varios'),('Libreria'),('Cadetes');
+
+SELECT * FROM categoria_gasto;
