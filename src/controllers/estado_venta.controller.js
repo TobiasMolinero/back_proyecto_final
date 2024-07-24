@@ -1,10 +1,10 @@
 import { pool } from '../db.js'
 
 export const crear = (req, res) => {
-    const {descripcion} = req.body
+    const {estado} = req.body
 
     pool.query(`INSERT INTO estado_venta(estado)
-                VALUES('${descripcion}')
+                VALUES('${estado}')
     `, (error) => {
         if(error){
             console.log(error)
@@ -21,10 +21,10 @@ export const crear = (req, res) => {
 
 export const editar = (req, res) => {
     const id = req.params.id
-    const {descripcion} = req.body
+    const {estado} = req.body
 
     pool.query(`UPDATE estado_venta SET   
-                estado = '${descripcion}'
+                estado = '${estado}'
                 WHERE id_estado_venta = ${id}
     `, (error, results) => {
         if(error){
@@ -42,7 +42,7 @@ export const editar = (req, res) => {
 export const one = (req, res) => {
     const id = req.params.id
 
-    pool.query(`SELECT id_estado_venta, descripcion FROM estado
+    pool.query(`SELECT id_estado_venta, estado FROM estado_venta
                 WHERE id_estado_venta = ${id} AND estado_registro = 1
     `, (error, results) => {
         if(error){

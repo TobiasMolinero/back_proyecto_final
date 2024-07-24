@@ -1,10 +1,10 @@
 import { pool } from '../db.js'
 
 export const crear = (req, res) => {
-    const {descripcion} = req.body
+    const {categoria_producto} = req.body
 
     pool.query(`INSERT INTO categoria_producto(categoria_producto)
-                VALUES('${descripcion}')
+                VALUES('${categoria_producto}')
     `, (error) => {
         if(error){
             console.log(error)
@@ -21,10 +21,10 @@ export const crear = (req, res) => {
 
 export const editar = (req, res) => {
     const id = req.params.id
-    const {descripcion} = req.body
+    const {categoria_producto} = req.body
 
     pool.query(`UPDATE categoria_producto SET   
-                categoria_producto = '${descripcion}'
+                categoria_producto = '${categoria_producto}'
                 WHERE id_categoria_producto = ${id}
     `, (error) => {
         if(error){

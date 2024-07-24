@@ -90,10 +90,10 @@ export const borrar = (req, res) => {
 }
 
 export const crearCategoria = (req, res) => {
-    const {descripcion} = req.body
+    const {categoria} = req.body
 
-    pool.query(`INSERT INTO categoria_gasto(descripcion)
-                VALUES('${descripcion}')
+    pool.query(`INSERT INTO categoria_gasto(categoria)
+                VALUES('${categoria}')
     `, (error) => {
         if(error){
             res.status(500).json({
@@ -108,7 +108,7 @@ export const crearCategoria = (req, res) => {
 }
 
 export const allCategorias = (req, res) => {
-    pool.query('SELECT id_categoria_gasto, descripcion FROM categoria_gasto WHERE estado_registro = 1'
+    pool.query('SELECT id_categoria_gasto, categoria FROM categoria_gasto WHERE estado_registro = 1'
     , (error, results) => {
         if(error){
             res.status(500).json({
@@ -124,10 +124,10 @@ export const allCategorias = (req, res) => {
 
 export const editarCategoria = (req, res) => {
     const id = req.params.id
-    const {descripcion} = req.body
+    const {categoria} = req.body
 
     pool.query(`UPDATE categoria_gasto SET 
-                descripcion = '${descripcion}'
+                categoria = '${categoria}'
                 WHERE id_categoria_gasto = ${id}
     `, (error) => {
         if(error){
