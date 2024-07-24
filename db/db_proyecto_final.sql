@@ -3,56 +3,40 @@ CREATE DATABASE proyecto_final;
 
 USE proyecto_final;
 
-CREATE TABLE pedido(
-id_pedido INT PRIMARY KEY AUTO_INCREMENT,
-	nro_pedido INT CHECK(nro_pedido > 0) NOT NULL,
+CREATE TABLE venta(
+	id_venta INT PRIMARY KEY AUTO_INCREMENT,
+	nro_factura INT CHECK(nro_factura > 0) NOT NULL,
     fecha DATETIME NOT NULL,
     id_cliente INT NOT NULL,
-    id_estado_pedido INT NOT NULL,
+    id_metodo_pago INT NOT NULL,
+    id_tipo_factura INT NOT NULL,
+    id_estado_venta INT NOT NULL,
     observaciones VARCHAR(1000),
     importe_total DECIMAL(10, 2) CHECK(importe_total > 0) NOT NULL,
     estado_registro TINYINT DEFAULT 1  
 );
 
-CREATE TABLE detalle_pedido(
-	nro_pedido INT NOT NULL,
+CREATE TABLE detalle_venta(
+	id_venta INT NOT NULL,
 	id_producto INT NOT NULL,
     cantidad INT CHECK(cantidad > 0) NOT NULL
 );
 
-CREATE TABLE estado_pedido(
-	id_estado_pedido INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(30) NOT NULL,
-    descripcion VARCHAR(150),
+CREATE TABLE tipo_factura(
+	id_tipo_factura INT PRIMARY KEY AUTO_INCREMENT,
+    factura VARCHAR(1) NOT NULL,
     estado_registro TINYINT DEFAULT 1
-);
-
-CREATE TABLE venta(
-	id_venta INT PRIMARY KEY AUTO_INCREMENT,
-    nro_pedido INT NOT NULL,
-    id_estado_venta INT NOT NULL,
-	id_metodo_pago INT NOT NULL,
-    descuento DECIMAL(1, 2) CHECK(descuento >= 0) DEFAULT 0 NOT NULL,
-    por_cobrar DECIMAL(10, 2) CHECK(por_cobrar >= 0) NOT NULL,
-    cobrado DECIMAL(10, 2) CHECK(cobrado >= 0) NOT NULL,
-    estado_registro TINYINT DEFAULT 1
-);
-
-CREATE TABLE cobros_venta(
-	id_venta INT NOT NULL,
-    fecha DATETIME NOT NULL,
-    importe_cobro DECIMAL(10, 2) CHECK(importe_cobro > 0) NOT NULL
 );
 
 CREATE TABLE estado_venta(
 	id_estado_venta INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(30) NOT NULL,
+    estado VARCHAR(30) NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
 
 CREATE TABLE metodo_pago(
 	id_metodo_pago INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(30) NOT NULL,
+    metodo VARCHAR(30) NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
 
@@ -68,34 +52,34 @@ CREATE TABLE producto(
 
 CREATE TABLE categoria_producto(
 	id_categoria_producto INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(30) NOT NULL,
+    categoria_producto VARCHAR(30) NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
 
 CREATE TABLE cliente(
 	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
-    apellido VARCHAR(50) NOT NULL,
+    apellido VARCHAR(50),
+    nro_documento INT CHECK(nro_documento > 0),
     razon_social VARCHAR(50),
-    domicilio VARCHAR(100) NOT NULL,
-    telefono VARCHAR(100) NOT NULL,
-    correo VARCHAR(100) NOT NULL,
+    domicilio VARCHAR(100),
+    telefono VARCHAR(100),
+    correo VARCHAR(100),
     activo TINYINT DEFAULT 1
 );
 
 CREATE TABLE inventario(
-	id_mercaderia INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(50) NOT NULL,
+	id_producto INT NOT NULL,
     stock INT CHECK(stock >= 0) NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
 
-CREATE TABLE ingreso_mercaderia(
-	id_mercaderia INT NOT NULL,
+/* CREATE TABLE ingreso_mercaderia(
+	id_producto INT NOT NULL,
     fecha_ingreso DATETIME,
     cantidad INT CHECK(cantidad > 0) NOT NULL,
     estado_registro TINYINT DEFAULT 1
-);
+); */
 
 CREATE TABLE gasto(
 	id_gasto INT PRIMARY KEY AUTO_INCREMENT,
@@ -108,7 +92,7 @@ CREATE TABLE gasto(
 
 CREATE TABLE categoria_gasto(
 	id_categoria_gasto INT PRIMARY KEY AUTO_INCREMENT,
-    descripcion VARCHAR(100) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
 
@@ -123,7 +107,7 @@ CREATE TABLE persona(
 CREATE TABLE usuario(
 	id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     usuario VARCHAR(100) NOT NULL,
-    contraseña VARCHAR(200) NOT NULL,
+    contraseña VARCHAR(1000) NOT NULL,
 	id_rol_usuario INT NOT NULL,
     id_persona INT NOT NULL,
     activo TINYINT DEFAULT 1
@@ -136,18 +120,22 @@ CREATE TABLE rol_usuario(
 );
 
 /* CLAVES FORANEAS */
-/* PEDIDOS */
-ALTER TABLE pedido
-ADD CONSTRAINT fk_pedido_cliente
+/* VENTAS */
+ALTER TABLE venta
+ADD CONSTRAINT fk_venta_cliente
 FOREIGN KEY (id_cliente) REFERENCES cliente(id_cliente);
 
-ALTER TABLE pedido
-ADD CONSTRAINT fk_pedido_estado
-FOREIGN KEY (id_estado_pedido) REFERENCES estado_pedido(id_estado_pedido);
+ALTER TABLE venta
+ADD CONSTRAINT fk_venta_estado
+FOREIGN KEY (id_estado_venta) REFERENCES estado_venta(id_estado_venta);
 
-ALTER TABLE pedido
-ADD CONSTRAINT fk_pedido_metodo
+ALTER TABLE venta
+ADD CONSTRAINT fk_venta_metodo
 FOREIGN KEY (id_metodo_pago) REFERENCES metodo_pago(id_metodo_pago);
+
+ALTER TABLE venta
+ADD CONSTRAINT fk_venta_factura
+FOREIGN KEY (id_tipo_factura) REFERENCES tipo_factura(id_tipo_factura);
 
 /* PRODUCTO */
 ALTER TABLE producto
@@ -155,11 +143,11 @@ ADD CONSTRAINT fk_producto_categoria
 FOREIGN KEY (id_categoria_producto) REFERENCES categoria_producto(id_categoria_producto);
 
 /* DETALLE PEDIDO */
-ALTER TABLE detalle_pedido
-ADD CONSTRAINT fk_detalle_nro_pedido
-FOREIGN KEY (nro_pedido) REFERENCES pedido(nro_pedido);
+ALTER TABLE detalle_venta
+ADD CONSTRAINT fk_detalle_venta
+FOREIGN KEY (id_venta) REFERENCES venta(id_venta);
 
-ALTER TABLE detalle_pedido
+ALTER TABLE detalle_venta
 ADD CONSTRAINT fk_detalle_producto
 FOREIGN KEY (id_producto) REFERENCES producto(id_producto);
 

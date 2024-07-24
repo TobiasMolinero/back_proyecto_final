@@ -4,7 +4,7 @@
 INSERT INTO rol_usuario(descripcion)
 VALUES('admin'),('empleado');
 
-/* INSERT INTO persona(nombre, apellido, correo, telefono)
+INSERT INTO persona(nombre, apellido, correo, telefono)
 VALUES('Tobias', 'Molinero', 'tobiasmolinero98@gmail.com', '3815673581');
 SELECT * FROM persona;
 
@@ -12,7 +12,7 @@ INSERT INTO usuario(usuario, contraseña, id_rol_usuario, id_persona)
 VALUES('TobiasM', '12345', 1, 1);
 SELECT * FROM usuario;
 
-DELETE FROM persona WHERE id_persona = 1; */
+DELETE FROM persona WHERE id_persona = 1; 
 
 /* Estado pedido */
 INSERT INTO estado_pedido(nombre, descripcion)
@@ -27,7 +27,6 @@ SELECT * FROM estado_pedido;
 /* Cliente */
 SELECT * FROM cliente;
 UPDATE cliente SET activo = 1;
-
 
 /* Categoria producto */
 UPDATE categoria_producto SET estado_registro = 1 WHERE id_categoria_producto = 1;
@@ -55,7 +54,7 @@ VALUES(1, '2024-06-07', 10000);
 SELECT * FROM gasto;
 
 /* CATEGORIA GASTOS */
-INSERT INTO categoria_gasto(descripcion)
+INSERT INTO categoria_gasto(categoria)
 VALUES('Sueldos'),('varios'),('Libreria'),('Cadetes');
 
 SELECT * FROM categoria_gasto;
