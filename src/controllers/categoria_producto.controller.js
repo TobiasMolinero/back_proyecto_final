@@ -3,7 +3,7 @@ import { pool } from '../db.js'
 export const crear = (req, res) => {
     const {descripcion} = req.body
 
-    pool.query(`INSERT INTO categoria_producto(descripcion)
+    pool.query(`INSERT INTO categoria_producto(categoria_producto)
                 VALUES('${descripcion}')
     `, (error) => {
         if(error){
@@ -24,9 +24,9 @@ export const editar = (req, res) => {
     const {descripcion} = req.body
 
     pool.query(`UPDATE categoria_producto SET   
-                descripcion = '${descripcion}'
+                categoria_producto = '${descripcion}'
                 WHERE id_categoria_producto = ${id}
-    `, (error, results) => {
+    `, (error) => {
         if(error){
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
@@ -42,7 +42,7 @@ export const editar = (req, res) => {
 export const one = (req, res) => {
     const id = req.params.id
 
-    pool.query(`SELECT id_categoria_producto, descripcion FROM categoria_producto
+    pool.query(`SELECT id_categoria_producto, categoria_producto FROM categoria_producto
                 WHERE id_categoria_producto = ${id} AND estado_registro = 1
     `, (error, results) => {
         if(error){
@@ -58,7 +58,7 @@ export const one = (req, res) => {
 }
 
 export const all = (req, res) => {
-    pool.query(`SELECT id_categoria_producto, descripcion FROM categoria_producto 
+    pool.query(`SELECT id_categoria_producto, categoria_producto FROM categoria_producto 
                 WHERE estado_registro = 1
     `, (error, results) => {
         if(error){
@@ -79,7 +79,7 @@ export const borrar = (req, res) => {
     pool.query(`UPDATE categoria_producto SET
                 estado_registro = 0
                 WHERE id_categoria_producto = ${id}
-    `, (error, results) => {
+    `, (error) => {
         if(error){
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'

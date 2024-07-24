@@ -5,12 +5,12 @@ import { crear, editar, one, all, borrar } from '../controllers/estado_pedido.co
 const router = Router()
 
 // RUTAS GENERALES
-router.get('/estado-pedido/all', all)
+router.get('/estado-venta/all', all)
 
 // RUTAS ADMIN
-router.get('/admin/estado-pedido/one/:id', one)
-router.post('/admin/estado-pedido/create', crear)
-router.put('/admin/estado-pedido/edit/:id', editar)
-router.put('/admin/estado-pedido/delete/:id', borrar)
+router.get('/admin/estado-venta/one/:id', one)
+router.post('/admin/estado-venta/create', crear)
+router.put('/admin/estado-venta/edit/:id', editar)
+router.put('/admin/estado-venta/delete/:id', borrar)
 
 export default router

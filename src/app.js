@@ -8,7 +8,7 @@ import cors from "cors";
 import indexRoute from './routes/index.route.js'
 import usuarios from './routes/usuario.route.js'
 import ventas from './routes/ventas.route.js'
-import estado_pedido from './routes/estado_pedido.route.js'
+import estado_venta from './routes/estado_venta.route.js'
 import clientes from './routes/cliente.route.js'
 import productos from './routes/producto.route.js'
 import categoria_producto from './routes/categoria_producto.route.js'
@@ -24,7 +24,7 @@ app.use(cors());
 //USAMOS LAS RUTAS
 app.use('/', indexRoute)
 app.use('/', usuarios)
-app.use('/', estado_pedido)
+app.use('/', estado_venta)
 app.use('/', ventas)
 app.use('/', clientes)
 app.use('/', productos)
