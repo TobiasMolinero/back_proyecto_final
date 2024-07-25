@@ -1,14 +1,12 @@
 import { pool } from '../db.js'
 
 export const crear = (req, res) => {
-    console.log(req.body)
     const {cod_producto, id_categoria_producto, nombre_producto, descripcion, precio} = req.body
 
     pool.query(`INSERT INTO producto(cod_producto, nombre_producto, id_categoria_producto, descripcion, precio)
                 VALUES('${cod_producto}', '${nombre_producto}', ${id_categoria_producto}, '${descripcion}', ${precio})
     `, (error) => {
         if(error){
-        console.log(error)
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
             })

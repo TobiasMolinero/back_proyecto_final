@@ -68,9 +68,11 @@ CREATE TABLE cliente(
     activo TINYINT DEFAULT 1
 );
 
+DROP TABLE inventario;
+
 CREATE TABLE inventario(
 	id_producto INT NOT NULL,
-    stock INT CHECK(stock >= 0) NOT NULL,
+    stock INT CHECK(stock >= 0) DEFAULT 0 NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
 
@@ -166,10 +168,10 @@ ALTER TABLE gasto
 ADD CONSTRAINT fk_gasto_categoria
 FOREIGN KEY (id_categoria_gasto) REFERENCES categoria_gasto(id_categoria_gasto);
 
-/* INGRESO MERCADERIA */
-ALTER TABLE ingreso_mercaderia
-ADD CONSTRAINT fk_ingreso_inventario
-FOREIGN KEY (id_mercaderia) REFERENCES inventario(id_mercaderia);
+/* INVENTARIO */
+ALTER TABLE inventario
+ADD CONSTRAINT fk_inventario_producto
+FOREIGN KEY (id_producto) REFERENCES producto(id_producto);
 
 SET SQL_SAFE_UPDATES = 0;
 
