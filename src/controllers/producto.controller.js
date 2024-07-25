@@ -94,7 +94,7 @@ export const borrar = (req, res) => {
 }
 
 export const categorias = (req, res) => {
-    pool.query('SELECT id_categoria_producto, descripcion FROM categoria_producto'
+    pool.query('SELECT id_categoria_producto, categoria_producto FROM categoria_producto'
     , (error, results) => {
         if(error){
             res.status(500).json({

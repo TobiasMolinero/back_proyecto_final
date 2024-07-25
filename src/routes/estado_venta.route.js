@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { crear, editar, one, all, borrar } from '../controllers/estado_pedido.controller.js'
+import { crear, editar, one, all, borrar } from '../controllers/estado_venta.controller.js'
 // import { checkToken } from '../middlewares/checkToken.js'
 
 const router = Router()
