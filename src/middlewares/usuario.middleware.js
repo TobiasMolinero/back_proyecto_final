@@ -1,21 +1,31 @@
 import { pool } from '../db.js';
 
 export const validarUsuarioExistente = (req, res, next) => {
+    const id = req.params.id !== undefined ? req.params.id : 0
+
     const {usuario} = req.body;
 
-    pool.query(`SELECT usuario FROM usuarios WHERE usuario = '${usuario}'
+    pool.query(`SELECT id_usuario, usuario FROM usuarios WHERE usuario = '${usuario}'
     `, (error, results) => {
         if(error){
             res.status(500).json({
                 message: 'Ocurrio un error en el servidor.'
             })
         } else {
-            if(results.length > 0){
+            if(results.length > 0 && +id === 0){
                 res.status(409).json({
                     message: 'El nombre de usuario ya existe.'
                 })
+            } else if(results.length > 0 && +id !== 0){
+                if(results[0].id_usuario === +id){
+                    next()
+                } else {
+                    res.status(409).json({
+                        message: 'Ya existe otro usuario con ese nombre.'
+                    })
+                }
             } else {
-                next();
+                next()
             }
         }
     })

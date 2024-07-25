@@ -24,7 +24,7 @@ router.post('/usuarios/login', login)
 // RUTAS ADMIN
 router.get('/admin/usuarios/listarusuarios', listadoUsuarios)
 router.post('/admin/usuarios/altausuario', validarUsuarioExistente, validarContraseña, altaPersona, altaUsuario)
-router.put('/admin/usuarios/edit/:id', validarUsuarioExistente,editarPersona, modificarUsuario)
+router.put('/admin/usuarios/edit/:id', validarUsuarioExistente, editarPersona, modificarUsuario)
 router.put('/admin/usuarios/editpassword/:id', modificarContraseña)
 router.put('/admin/usuarios/bajausuario/:id', bajaUsuario)
 
