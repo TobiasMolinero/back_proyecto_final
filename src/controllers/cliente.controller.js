@@ -4,7 +4,7 @@ export const crear = (req, res) => {
     const {nombre, apellido, nro_documento, razon_social, domicilio, telefono, correo} = req.body
 
     pool.query(`INSERT INTO cliente(nombre, apellido, nro_documento, razon_social, domicilio, telefono, correo)
-                VALUES('${nombre}', '${apellido}', ${nro_documento}, '${razon_social}', '${domicilio}', '${telefono}', '${correo}')
+                VALUES('${nombre}', '${apellido}', '${nro_documento}', '${razon_social}', '${domicilio}', '${telefono}', '${correo}')
     `, (error) => {
         if(error){
             res.status(500).json({
@@ -25,7 +25,7 @@ export const editar = (req, res) => {
     pool.query(`UPDATE cliente SET 
                 nombre = '${nombre}',
                 apellido = '${apellido}',
-                nro_documento = ${nro_documento},
+                nro_documento = '${nro_documento}',
                 razon_social = '${razon_social}',
                 domicilio = '${domicilio}',
                 telefono = '${telefono}',

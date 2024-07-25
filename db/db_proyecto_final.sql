@@ -60,7 +60,7 @@ CREATE TABLE cliente(
 	id_cliente INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(50) NOT NULL,
     apellido VARCHAR(50),
-    nro_documento INT CHECK(nro_documento > 0),
+    nro_documento VARCHAR(50),
     razon_social VARCHAR(50),
     domicilio VARCHAR(100),
     telefono VARCHAR(100),
