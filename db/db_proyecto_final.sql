@@ -42,7 +42,7 @@ CREATE TABLE metodo_pago(
 
 CREATE TABLE producto(
 	id_producto INT PRIMARY KEY AUTO_INCREMENT,
-    cod_producto VARCHAR(50) NOT NULL,
+    cod_producto VARCHAR(50) UNIQUE NOT NULL,
     nombre_producto VARCHAR(50) NOT NULL,
     id_categoria_producto INT NOT NULL,
     descripcion VARCHAR(100),
@@ -71,10 +71,11 @@ CREATE TABLE cliente(
 DROP TABLE inventario;
 
 CREATE TABLE inventario(
-	id_producto INT NOT NULL,
+	id_producto INT UNIQUE NOT NULL,
     stock INT CHECK(stock >= 0) DEFAULT 0 NOT NULL,
     estado_registro TINYINT DEFAULT 1
 );
+DROP TABLE inventario;
 
 /* CREATE TABLE ingreso_mercaderia(
 	id_producto INT NOT NULL,

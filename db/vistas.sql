@@ -34,14 +34,14 @@ SELECT * FROM productos;
 /* Vista para el stock de productoss*/
 DROP VIEW stock;
 CREATE VIEW stock AS 
-SELECT p.id_producto, p.cod_producto, p.nombre_producto, p.id_categoria_producto, i.stock FROM producto p
+SELECT p.id_producto, p.cod_producto, p.nombre_producto, p.id_categoria_producto, cp.categoria_producto, i.stock FROM producto p
 JOIN inventario i ON p.id_producto = i.id_producto
+JOIN categoria_producto cp ON p.id_categoria_producto = cp.id_categoria_producto
 WHERE p.estado_registro = 1;
 
 SELECT * FROM stock;
 
 /* Vista para las ventas con su estado, metodo, tipo_factura y el cliente que hizo el pedido*/
-
 
 
 

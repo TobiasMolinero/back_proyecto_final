@@ -62,8 +62,8 @@ VALUES('Sueldos'),('varios'),('Libreria'),('Cadetes');
 SELECT * FROM categoria_gasto;
 
 /* INVENTARIO */
-INSERT INTO inventario(id_producto)
-VALUES(2);
 SELECT * FROM inventario;
+
+SELECT * FROM categoria_producto;
 
 DELETE FROM inventario WHERE id_producto = 1;

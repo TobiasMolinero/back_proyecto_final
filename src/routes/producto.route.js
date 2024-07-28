@@ -1,17 +1,27 @@
-import { Router } from 'express'
-import { crear, editar, one, all, borrar, categorias } from '../controllers/producto.controller.js'
-// import { checkToken } from '../middlewares/checkToken.js' 
+import { Router } from "express";
+import {
+  crear,
+  editar,
+  one,
+  all,
+  borrar,
+  categorias,
+  getInventario,
+} from "../controllers/producto.controller.js";
+import { validarCodigoProducto } from "../middlewares/producto.middleware.js";
+// import { checkToken } from '../middlewares/checkToken.js'
 
-const router = Router()
+const router = Router();
 
 // RUTAS GENERALES
-router.get('/productos/one/:id', one)
-router.get('/productos/all', all)
-router.get('/productos/categorias', categorias)
-router.post('/productos/create', crear)
+router.get("/productos/one/:id", one);
+router.get("/productos/all", all);
+router.get("/productos/categorias", categorias);
+router.get("/productos/inventario", getInventario);
+router.post("/productos/create", validarCodigoProducto, crear);
 
 // RUTAS ADMIN
-router.put('/admin/productos/edit/:id', editar)
-router.put('/admin/productos/delete/:id', borrar)
+router.put("/admin/productos/edit/:id", editar);
+router.put("/admin/productos/delete/:id", borrar);
 
-export default router
+export default router;
