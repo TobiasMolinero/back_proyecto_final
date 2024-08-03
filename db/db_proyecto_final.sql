@@ -68,8 +68,6 @@ CREATE TABLE cliente(
     activo TINYINT DEFAULT 1
 );
 
-DROP TABLE inventario;
-
 CREATE TABLE inventario(
 	id_producto INT UNIQUE NOT NULL,
     stock INT CHECK(stock >= 0) DEFAULT 0 NOT NULL,

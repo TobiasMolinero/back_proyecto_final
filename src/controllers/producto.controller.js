@@ -117,14 +117,33 @@ export const categorias = (req, res) => {
 }
 
 export const getInventario = (req, res) => {
-    pool.query('SELECT * FROM stock', (results, error) => {
+    pool.query('SELECT * FROM stock', (error, results) => {
         if(error){
+            console.log(error)
             res.status(500).json({
-                message: 'Ocurrio un error en el servidor.'
+                message: 'Ocurrió un error en el servidor.'
             })
         } else {
             res.status(200).json({
                 data: results
+            })
+        }
+    })
+}
+
+export const registarIngresoStock = (req, res) => {
+    const id = req.params.id
+    const { cantidad } = req.body
+    pool.query(`UPDATE inventario SET stock = stock + ${cantidad} 
+                WHERE id_producto = ${id}
+    `, (error) => {
+        if(error){
+            res.status(500).json({
+                message: 'Ocurrió un error en el servidor.'
+            })
+        } else {
+            res.json({
+                message: 'Se registró el ingreso con exito.'
             })
         }
     })

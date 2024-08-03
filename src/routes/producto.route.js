@@ -7,6 +7,7 @@ import {
   borrar,
   categorias,
   getInventario,
+  registarIngresoStock,
 } from "../controllers/producto.controller.js";
 import { validarCodigoProducto } from "../middlewares/producto.middleware.js";
 // import { checkToken } from '../middlewares/checkToken.js'
@@ -19,6 +20,7 @@ router.get("/productos/all", all);
 router.get("/productos/categorias", categorias);
 router.get("/productos/inventario", getInventario);
 router.post("/productos/create", validarCodigoProducto, crear);
+router.put("/productos/update-stock/:id", registarIngresoStock)
 
 // RUTAS ADMIN
 router.put("/admin/productos/edit/:id", editar);
