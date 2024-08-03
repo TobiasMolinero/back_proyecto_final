@@ -58,11 +58,13 @@ SELECT * FROM gasto;
 /* CATEGORIA GASTOS */
 INSERT INTO categoria_gasto(categoria)
 VALUES('Sueldos'),('varios'),('Libreria'),('Cadetes');
+SELECT * FROM producto;
 
 SELECT * FROM categoria_gasto;
 
 /* INVENTARIO */
 SELECT * FROM inventario;
+UPDATE inventario SET estado_registro = 0 WHERE id_producto = 2;
 
 SELECT * FROM categoria_producto;
 

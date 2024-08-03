@@ -94,9 +94,20 @@ export const borrar = (req, res) => {
                 message: 'Ocurrio un error en el servidor.'
             })
         } else {
-            res.status(200).json({
-                message: 'El producto se dio de baja con exito.'
+            pool.query(`UPDATE inventario SET estado_registro = 0
+                        WHERE id_producto = ${id}    
+            `, (error) => {
+                if(error){
+                    res.status(500).json({
+                        message: 'Ocurrio un error en el servidor.' 
+                    })
+                } else {
+                    res.status(200).json({
+                        message: 'El producto se dio de baja con exito.'
+                    })
+                }
             })
+
         }
     })
 }
